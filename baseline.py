@@ -1,4 +1,7 @@
 def cover(O, C, S, R):
+    if not S:
+        return []
+    
     e = []
     for i in range(0,len(S)):
         e.append((S[i]-R[i], S[i]+R[i]))
@@ -18,23 +21,81 @@ def cover(O, C, S, R):
                 SO[i].append(tree)
 
     trees = O[:]
-    counter = 0
+    CactusCounter = 0
     solution = []
     while len(trees) > 0:
         for i in range(0, len(SC)):
-            if len(SC[i]) == counter:
+            if len(SC[i]) == CactusCounter:
                 solution.append(S[i])
                 for tree in SO[i]:
-                    print(trees)
                     if tree in trees:
                         trees.remove(tree)
                     if not trees:
                         return solution  
-        counter += 1
+        CactusCounter += 1
+
+
+
+ # Testing
+
+
+# Test 1: Modified example from the project doc
 
 a1 = [2,6,11]
 a2 = [4,8,14]
 a3 = [3,7,12]
 a4 = [3, 2, 1]
 
-print(cover(a1, a2, a3, a4))
+expectedOutput = [12, 3]
+if cover(a1, a2, a3, a4) != expectedOutput:
+    print("TEST 1 ERROR: algorithm is not providing correct output.")
+
+
+
+# Test 3: Example I made up
+
+a1 = [3,5]
+a2 = [2,6,7]
+a3 = [1,4,8]
+a4 = [5, 1, 5]
+
+expectedOutput = [4]
+if cover(a1,a2,a3,a4) != expectedOutput:
+    print("TEST 2 ERROR: algorithm is not providing correct output.")
+
+
+# Test 3: Example with empty solution
+
+a1 = [1,2,4]
+a2 = [3,6,9]
+a3 = []
+a4 = [1,2,3]
+
+expectedOutput = []
+if cover(a1,a2,a3,a4) != expectedOutput:
+    print("TEST 3 ERROR: algorithm is not providing correct output.")
+
+# Test 4: Another example I made up
+
+a1 = [2,7]
+a2 = [1,4]
+a3 = [3,6]
+a4 = [2,1]
+
+expectedOutput = [6,3]
+
+if cover(a1,a2,a3,a4) != expectedOutput:
+    print("TEST 4 ERROR: algorithm is not providing correct output.")
+
+
+# Test 5: Slightly larger inputs
+
+a1 = [4,8,15]
+a2 = [2,3,11,12,17,20]
+a3 = [1,5,9,14,18]
+a4 = [3,1,2,1,4]
+
+expectedOutput = [5,14,9]
+
+if cover(a1,a2,a3,a4) != expectedOutput:
+    print("TEST 5 ERROR: algorithm is not providing correct output.")
