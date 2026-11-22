@@ -47,11 +47,49 @@ def cover(O, C, S, R):
         # to the solution set and cross off all the trees it covers as well. Keep going until all
         # trees have been watered
         for i in range(0, len(SC)):
-            if len(SC[i]) == CactusCounter and SO[i]:
+            if len(SC[i]) == CactusCounter and SO[i]: 
                 solution.append(S[i])
-                for tree in SO[i]:
-                    if tree in trees:
-                        trees.remove(tree)
-                    if not trees:
-                        return solution  
+                if SO[i][0] in trees:
+                    trees.remove(SO[i][0])
+                if not trees:
+                    return solution  
         CactusCounter += 1
+
+
+# Testing
+
+
+# Test 1: 
+
+a1 = [3,6]
+a2 = [5,10,11]
+a3 = [2,4,7,9]
+a4 = [1,1,1,1]
+
+expectedOutput = [2,7]
+if cover(a1, a2, a3, a4) != expectedOutput:
+    print("TEST 1 ERROR: algorithm is not providing correct output.")
+
+
+# Test 2:
+
+a1 = [3,9,12]
+a2 = [5,7,11]
+a3 = [1,2,6,8,10,13]
+a4 = [1,1,1,1,1,1]
+
+expectedOutput = [2,13,8]
+if cover(a1, a2, a3, a4) != expectedOutput:
+    print("TEST 2 ERROR: algorithm is not providing correct output.")
+
+
+# Test 3:
+
+a1 = [2,15,37,41,50,79]
+a2 = [4,13,30,36,40,56]
+a3 = [1,14,21,36,42,51,80]
+a4 = [1,1,1,1,1,1,1]
+
+expectedOutput = [1, 42, 51, 80, 14, 36]
+if cover(a1, a2, a3, a4) != expectedOutput:
+    print("TEST 3 ERROR: algorithm is not providing correct output.")
